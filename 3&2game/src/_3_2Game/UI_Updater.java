@@ -4,15 +4,17 @@ import java.util.ArrayList;
 
 public interface UI_Updater {
 	
-	public void P1_DrawMD(Card card);
-	public void P2_DrawMD(Card card);
-	public void P3_DrawMD(Card card);
-	public void P4_DrawMD(Card card);
+	ArrayList<Card> P1Cards=new ArrayList<Card>();
 	
-	public void P1_DrawDD(Card card);
-	public void P2_DrawDD(Card card);
-	public void P3_DrawDD(Card card);
-	public void P4_DrawDD(Card card);
+	public void P1_DrawMD(Card card);
+	public void P2_DrawMD();
+	public void P3_DrawMD();
+	public void P4_DrawMD();
+	
+	public void P1_DrawDD(Card DrawnCard, Card visibleCard);
+	public void P2_DrawDD(Card visibleCard);
+	public void P3_DrawDD(Card visibleCard);
+	public void P4_DrawDD(Card visibleCard);
 	
 	public void P1_DiscardDD(Card card);
 	public void P2_DiscardDD(Card card);
