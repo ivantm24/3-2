@@ -53,30 +53,6 @@ public class UI_cmd implements UI_Updater{
 	}
 
 	@Override
-	public void P1_DiscardMD(Card card) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void P2_DiscardMD(Card card) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void P3_DiscardMD(Card card) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void P4_DiscardMD(Card card) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void P1_DiscardDD(Card card) {
 		// TODO Auto-generated method stub
 		
