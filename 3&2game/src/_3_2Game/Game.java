@@ -49,7 +49,12 @@ public class Game {
 	}
 
 	private void Play() {
-		//TODO
+		if (currentPlayer==players.get(0)){
+			currentPlayer.startPlaying();
+			
+		}else{
+			
+		}
 		
 	}
 
@@ -76,6 +81,7 @@ public class Game {
 				player.Draw(MainDeck);
 			}
 		}
+		ui.shuffle(players.get(0).getCards());
 	}
 	
 

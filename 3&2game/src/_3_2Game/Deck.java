@@ -12,8 +12,13 @@ public class Deck {
 		}
 	}
 	
-	public void Insert(Card card){
+	public ArrayList<Card> getCards(){
+		return cards;
+	}
+	
+	public Card Insert(Card card){
 		cards.add(card);
+		return card;
 	}
 	
 	public Card Draw(){
@@ -22,7 +27,18 @@ public class Deck {
 		Card card=cards.get(size-1);
 		cards.remove(size-1);
 		return card;
+	}
+	
+	public Card Draw(Card card){
+		int i;
 		
+		for (i = 0; i < cards.size(); i++) {
+			if (card.equals(cards.get(i)))
+				break;
+		}
+		if (cards.size()==i) return null;
+		cards.remove(i);
+		return card;
 	}
 	
 	public boolean isEmpty(){
