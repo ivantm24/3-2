@@ -19,7 +19,9 @@ public class Game {
 		this.players=players;
 		this.ui=ui_adapter;
 		this.MainDeck=new Deck(false);
+		this.MainDeck.shuffle();
 		this.DicardedDeck=new Deck(true);
+		this.DicardedDeck.Insert(this.DicardedDeck.Draw());
 		this.status=Status.NOTSTARTED;
 	}
 	
@@ -47,7 +49,7 @@ public class Game {
 	}
 
 	private void Play() {
-		// TODO Auto-generated method stub
+		//TODO
 		
 	}
 
@@ -69,8 +71,11 @@ public class Game {
 	}
 
 	private void Deal() {
-		// TODO Auto-generated method stub
-		
+		for (int i = 0; i < 5; i++) {
+			for(Player player:players){
+				player.Draw(MainDeck);
+			}
+		}
 	}
 	
 
