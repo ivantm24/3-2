@@ -10,4 +10,8 @@ public class Player {
 	public void Discard(Deck deck){
 		
 	}
+	
+	public boolean hasWon(){
+		return deck.isWinningHand();
+	}
 }
