@@ -12,7 +12,15 @@ public class Game implements Runnable {
 	private Player currentPlayer=null;
 	
 	public enum Status{
-		OVER, PLAYING,NOTSTARTED		
+		OVER, PLAYING,NOTSTARTED, WaitingForP1		
+	}
+	
+	public Status getStatus(){
+		return status;
+	}
+	
+	public UI_Updater getUI_updater(){
+		return ui;
 	}
 	
 	public Game(ArrayList<Player> players, UI_Updater ui_adapter){
@@ -22,7 +30,7 @@ public class Game implements Runnable {
 		this.MainDeck.shuffle();
 		this.DicardedDeck=new Deck(true);
 		this.DicardedDeck.Insert(this.DicardedDeck.Draw());
-		this.status=Status.NOTSTARTED;
+		this.status=Status.PLAYING;
 	}
 	
 	public Game(ArrayList<Player> players, UI_Updater ui_adapter, Player P1){
@@ -37,6 +45,7 @@ public class Game implements Runnable {
 			Play();
 			NextPlayer();
 		}
+		ui.display("End of Game");
 	}
 
 	private void NextPlayer() {
@@ -45,20 +54,20 @@ public class Game implements Runnable {
 			i=0;
 		}
 		currentPlayer=players.get(i);
-		
+		ui.display(currentPlayer+" turn");
 	}
+	
+//	public void NotifyP1move(){
+//		this.status=Status.PLAYING;
+//	}
 
 	private void Play() {
 		if (currentPlayer==players.get(0)){
-			try {
-				this.wait();
-			} catch (InterruptedException e) {
-				
-				e.printStackTrace();
-			}
-			
+			currentPlayer.turn=true;
+			while(currentPlayer.getTurn());
+			//this.status=Status.WaitingForP1;
+			//while (this.status==Status.WaitingForP1);		
 		}else{
-			int level=1;
 			CPUplay(currentPlayer);
 		}
 		
@@ -77,7 +86,7 @@ public class Game implements Runnable {
 		
 		ArrayList<Card> cards=currentPlayer2.getCards();
 		int i=rand.nextInt(cards.size());
-		Card discardedCard=currentPlayer2.Discard(cards.get(i), deck);
+		Card discardedCard=currentPlayer2.Discard(cards.get(i), DicardedDeck);
 		
 		switch (Pnum) {
 		case 1:
@@ -122,6 +131,7 @@ public class Game implements Runnable {
 		Random rand=new Random();
 		int i=rand.nextInt(players.size());
 		currentPlayer=players.get(i);
+		ui.display(currentPlayer+" turn");
 	}
 
 	private void Deal() {

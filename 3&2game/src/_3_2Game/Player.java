@@ -4,7 +4,29 @@ import java.util.ArrayList;
 
 public class Player {
 	private String userName="";
-	private Deck hand;
+	private Deck hand=new Deck(true);
+	public boolean turn=false;
+	private Game gm;
+	
+	public void assignGame(Game gm){
+		this.gm=gm;
+	}
+	
+	public void setTurn(boolean value){
+		synchronized (this) {
+			turn=value;			
+		}
+	}
+	
+	public boolean getTurn(){
+		synchronized (this) {
+			return turn;
+		}
+	}
+	
+	public Player(String userName){
+		this.userName=userName;
+	}
 	
 	public ArrayList<Card> getCards(){
 		return hand.getCards();
@@ -24,5 +46,10 @@ public class Player {
 	
 	public boolean hasWon(){
 		return hand.isWinningHand();
+	}
+	
+	@Override
+	public String toString() {
+		return userName;
 	}
 }
