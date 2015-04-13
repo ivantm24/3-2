@@ -3,7 +3,7 @@ package _3_2Game;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Game {
+public class Game implements Runnable {
 	Deck MainDeck;
 	Deck DicardedDeck;
 	ArrayList<Player> players;
@@ -50,12 +50,61 @@ public class Game {
 
 	private void Play() {
 		if (currentPlayer==players.get(0)){
-			currentPlayer.startPlaying();
+			try {
+				this.wait();
+			} catch (InterruptedException e) {
+				
+				e.printStackTrace();
+			}
 			
 		}else{
-			
+			int level=1;
+			CPUplay(currentPlayer);
 		}
 		
+	}
+
+	private void CPUplay(Player currentPlayer2) {
+		Random rand=new Random();
+		Deck deck;
+		if (rand.nextInt(1)==0){
+			deck=MainDeck;
+		}else{
+			deck=DicardedDeck;
+		}
+		currentPlayer2.Draw(deck);
+		int Pnum=players.indexOf(currentPlayer2);
+		
+		ArrayList<Card> cards=currentPlayer2.getCards();
+		int i=rand.nextInt(cards.size());
+		Card discardedCard=currentPlayer2.Discard(cards.get(i), deck);
+		
+		switch (Pnum) {
+		case 1:
+			if (deck==MainDeck)
+				ui.P2_DrawMD();
+			else
+				ui.P2_DrawDD(deck.Peek());
+			ui.P2_DiscardDD(discardedCard);
+			break;
+		case 2:
+			if (deck==MainDeck)
+				ui.P3_DrawMD();
+			else
+				ui.P3_DrawDD(deck.Peek());
+			ui.P3_DiscardDD(discardedCard);
+			break;
+		case 3:
+			if (deck==MainDeck)
+				ui.P4_DrawMD();
+			else
+				ui.P4_DrawDD(deck.Peek());
+			ui.P4_DiscardDD(discardedCard);
+			break;
+
+		default:
+			break;
+		}
 	}
 
 	private boolean isNotOver() {
@@ -81,7 +130,15 @@ public class Game {
 				player.Draw(MainDeck);
 			}
 		}
-		ui.shuffle(players.get(0).getCards());
+		DicardedDeck.Insert(MainDeck.Draw());
+		ui.shuffle(players.get(0).getCards(),DicardedDeck.Peek());
+		
+	}
+
+	@Override
+	public void run() {
+		StartGame();
+		
 	}
 	
 

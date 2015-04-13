@@ -21,7 +21,7 @@ public interface UI_Updater {
 	public void P3_DiscardDD(Card card);
 	public void P4_DiscardDD(Card card);
 	
-	public void shuffle(ArrayList<Card> P1_cards);
+	public void shuffle(ArrayList<Card> P1_cards,Card cardOnDD);
 	
 	public void display(String msg);
 

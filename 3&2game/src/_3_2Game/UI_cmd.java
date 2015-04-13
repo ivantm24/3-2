@@ -71,12 +71,13 @@ public class UI_cmd implements UI_Updater{
 	}
 
 	@Override
-	public void shuffle(ArrayList<Card> P1_cards) {
+	public void shuffle(ArrayList<Card> P1_cards, Card cardOnDD) {
 		System.out.print("P1 cards: ");
 		for(Card card:P1_cards){
 			System.out.print(card+" ");
 		}
 		System.out.println();
+		System.out.println("Card on Dicarded deck: "+cardOnDD);
 	}
 
 	@Override

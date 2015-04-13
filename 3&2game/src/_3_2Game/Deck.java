@@ -22,10 +22,14 @@ public class Deck {
 	}
 	
 	public Card Draw(){
+		Card card=Peek();
+		cards.remove(card);
+		return card;
+	}
+	public Card Peek(){
 		int size=cards.size();
 		if (size==0) return null;
 		Card card=cards.get(size-1);
-		cards.remove(size-1);
 		return card;
 	}
 	
