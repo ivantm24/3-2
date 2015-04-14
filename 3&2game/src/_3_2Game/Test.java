@@ -38,6 +38,7 @@ public class Test {
 				i=s.nextInt();
 				Card discardedCard=P1.Discard(P1.getCards().get(i), gm.DicardedDeck);
 				ui.P1_DiscardDD(discardedCard);
+				System.out.println("P1 hand:"+P1.getCards());
 				P1.setTurn(false);
 				//gm.notify();
 			}

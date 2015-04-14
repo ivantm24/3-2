@@ -17,6 +17,7 @@ public class Deck {
 	}
 	
 	public Card Insert(Card card){
+		if (card==null) return null;
 		cards.add(card);
 		return card;
 	}

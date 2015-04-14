@@ -33,16 +33,19 @@ public class UI_cmd implements UI_Updater{
 
 	@Override
 	public void P2_DrawDD(Card visibleCard) {
+		System.out.println("P2 Drew card from Discarded Deck");
 		System.out.println("New Card on Discarded Deck: "+ visibleCard);
 	}
 
 	@Override
 	public void P3_DrawDD(Card visibleCard) {
+		System.out.println("P3 Drew card from Discarded Deck");
 		System.out.println("New Card on Discarded Deck: "+ visibleCard);
 	}
 
 	@Override
 	public void P4_DrawDD(Card visibleCard) {
+		System.out.println("P4 Drew card from Discarded Deck");
 		System.out.println("New Card on Discarded Deck: "+ visibleCard);
 	}
 

@@ -10,13 +10,22 @@ public class Game implements Runnable {
 	private UI_Updater ui;
 	private Status status;
 	private Player currentPlayer=null;
+	private Random rand=new Random();
 	
 	public enum Status{
 		OVER, PLAYING,NOTSTARTED, WaitingForP1		
 	}
 	
 	public Status getStatus(){
-		return status;
+		synchronized (this) {
+			return status;
+		}
+	}
+	
+	private void setStatus(Status status){
+		synchronized (this) {
+			this.status=status;
+		}
 	}
 	
 	public UI_Updater getUI_updater(){
@@ -45,6 +54,7 @@ public class Game implements Runnable {
 			Play();
 			NextPlayer();
 		}
+		setStatus(Status.OVER);
 		ui.display("End of Game");
 	}
 
@@ -74,14 +84,15 @@ public class Game implements Runnable {
 	}
 
 	private void CPUplay(Player currentPlayer2) {
-		Random rand=new Random();
+		
 		Deck deck;
-		if (rand.nextInt(1)==0){
+		if (rand.nextInt(2)==0){
 			deck=MainDeck;
 		}else{
 			deck=DicardedDeck;
 		}
 		currentPlayer2.Draw(deck);
+		Card cardOnDDafterDraw=deck.Peek();
 		int Pnum=players.indexOf(currentPlayer2);
 		
 		ArrayList<Card> cards=currentPlayer2.getCards();
@@ -93,21 +104,21 @@ public class Game implements Runnable {
 			if (deck==MainDeck)
 				ui.P2_DrawMD();
 			else
-				ui.P2_DrawDD(deck.Peek());
+				ui.P2_DrawDD(cardOnDDafterDraw);
 			ui.P2_DiscardDD(discardedCard);
 			break;
 		case 2:
 			if (deck==MainDeck)
 				ui.P3_DrawMD();
 			else
-				ui.P3_DrawDD(deck.Peek());
+				ui.P3_DrawDD(cardOnDDafterDraw);
 			ui.P3_DiscardDD(discardedCard);
 			break;
 		case 3:
 			if (deck==MainDeck)
 				ui.P4_DrawMD();
 			else
-				ui.P4_DrawDD(deck.Peek());
+				ui.P4_DrawDD(cardOnDDafterDraw);
 			ui.P4_DiscardDD(discardedCard);
 			break;
 
@@ -128,7 +139,6 @@ public class Game implements Runnable {
 	private void SelectPlayerToPlay() {
 		if (currentPlayer!=null) return;
 		if (players.contains(currentPlayer)) return;
-		Random rand=new Random();
 		int i=rand.nextInt(players.size());
 		currentPlayer=players.get(i);
 		ui.display(currentPlayer+" turn");
