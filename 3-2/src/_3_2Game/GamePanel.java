@@ -12,7 +12,7 @@ package _3_2Game;
 public class GamePanel extends javax.swing.JPanel {
 
     /**
-     * Creates new form GamePanel
+     * Creates new form NewJPanel
      */
     public GamePanel() {
         initComponents();
@@ -29,24 +29,24 @@ public class GamePanel extends javax.swing.JPanel {
 
         jLabel1 = new javax.swing.JLabel();
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/_3_2Game/club_a.jpg"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/_3_2Game/cards/club_a.jpg"))); // NOI18N
         jLabel1.setSize(new java.awt.Dimension(40, 16));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(317, 317, 317)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(127, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addContainerGap(1962, Short.MAX_VALUE))
+                .addGap(105, 105, 105))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(162, 162, 162)
+                .addGap(19, 19, 19)
                 .addComponent(jLabel1)
-                .addContainerGap(915, Short.MAX_VALUE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
