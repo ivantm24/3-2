@@ -1,8 +1,9 @@
 package _3_2Game;
 
+import _3_2Game_Client.Table;
 import java.util.ArrayList;
 
-public class UI_cmd implements UI_Updater{
+public class UI_cmd implements UI_Updater, UI_Table_Lobby{
 
 	@Override
 	public void P1_DrawMD(Card card) {
@@ -88,5 +89,10 @@ public class UI_cmd implements UI_Updater{
 		System.out.println("MESSAGE: "+msg);
 		
 	}
+
+        @Override
+        public void refreshTables(ArrayList<Table> tables) {
+            System.out.println(tables);
+        }
 
 }
