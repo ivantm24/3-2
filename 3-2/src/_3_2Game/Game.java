@@ -6,7 +6,7 @@ import java.util.Random;
 public class Game implements Runnable {
 	Deck MainDeck;
 	Deck DicardedDeck;
-	ArrayList<Player> players;
+	protected ArrayList<Player> players;
 	private UI_Updater ui;
 	private Status status;
 	private Player currentPlayer=null;
@@ -58,7 +58,7 @@ public class Game implements Runnable {
 		ui.display("End of Game");
 	}
 
-	private void NextPlayer() {
+	protected void NextPlayer() {
 		int i=players.indexOf(currentPlayer)+1;
 		if (i>=players.size()){
 			i=0;
@@ -71,7 +71,7 @@ public class Game implements Runnable {
 //		this.status=Status.PLAYING;
 //	}
 
-	private void Play() {
+	protected void Play() {
 		if (currentPlayer==players.get(0)){
 			currentPlayer.turn=true;
 			while(currentPlayer.getTurn());
@@ -136,7 +136,7 @@ public class Game implements Runnable {
 		return true;
 	}
 
-	private void SelectPlayerToPlay() {
+	protected void SelectPlayerToPlay() {
 		if (currentPlayer!=null) return;
 		if (players.contains(currentPlayer)) return;
 		int i=rand.nextInt(players.size());
