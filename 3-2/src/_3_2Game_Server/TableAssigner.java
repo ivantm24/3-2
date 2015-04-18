@@ -29,6 +29,7 @@ public class TableAssigner extends Thread {
         PrintWriter out;
         private static ArrayList<Table_Server> tables;
         UI_Updater ui;
+        private boolean tableReady=false;
 
 	public TableAssigner(Socket socket, int clientNumber) throws IOException {
             this.socket = socket;
@@ -112,6 +113,10 @@ public class TableAssigner extends Thread {
                          boolean res=create_table(elements[1],elements[2]);
                          out.println(res);
                          break;
+                     case "TABLE_READY":
+                         tableReady(clientNumber, input);
+                         tableReady=true;
+                         return;
                      case "JOIN_TABLE":
                          Table_Server tb=getTable(elements[1]);
                          boolean joined;
@@ -128,8 +133,12 @@ public class TableAssigner extends Thread {
                              tb.sendToAllPlayers(playersCount.toString()); 
                              if (playersCount==4){
                                  ArrayList<Player> normalPlayers=new ArrayList<>(players);
-                                 Game_Server gm=new Game_Server(normalPlayers, ui);
-                                 new Thread(gm).join();
+                                 input = in.readLine();
+                                 tableReady(clientNumber, input);
+                                 Game_Server gm=new Game_Server(normalPlayers, ui,tb.getName());
+                                 new Thread(gm).start();
+                                 tableReady=true;
+                                 return;
                              }
                          }
                          
@@ -139,15 +148,15 @@ public class TableAssigner extends Thread {
              }
          } catch (IOException e) {
              log("Error handling client# " + clientNumber + ": " + e);
-         }  catch (InterruptedException ex) {
-             log("Error handling client# " + clientNumber + ": " + ex);
-            } finally {
-             try {
-                 socket.close();
-             } catch (IOException e) {
-                 log("Couldn't close a socket");
+         } finally {
+             if (!tableReady){
+                try {
+                    socket.close();
+                } catch (IOException e) {
+                    log("Couldn't close a socket");
+                }
+                log("Connection with client# " + clientNumber + " closed");
              }
-             log("Connection with client# " + clientNumber + " closed");
          }
      }
 
@@ -179,6 +188,10 @@ public class TableAssigner extends Thread {
             join(name, new Player_Client(userName,in, out));
         }
         return created;
+    }
+
+    private void tableReady(int clientNumber, String input) {
+        log("Client #"+clientNumber+" has "+ input);
     }
 
 }
