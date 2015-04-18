@@ -30,7 +30,7 @@ public class Chat_Server {
     
     
     void startServer(UI_Updater ui) throws IOException{
-        System.out.println("3&2 server is running");
+        System.out.println("3&2 chat server is running");
         int clientNumber = 0;
         ArrayList<PrintWriter> out_everyone=new ArrayList<>();
         ArrayList<Chat_Server_Listener> chats=new ArrayList<>();

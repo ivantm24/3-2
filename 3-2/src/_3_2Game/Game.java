@@ -55,8 +55,11 @@ public class Game implements Runnable {
 		Deal();
 		SelectPlayerToPlay();
 		while(isNotOver()){
-			Play();
-			NextPlayer();
+                    Play();
+                    NextPlayer();
+                    if (MainDeck.isEmpty()){
+                        refillMainDeck();
+                    }
 		}
 		setStatus(Status.OVER);
 		ui.display("End of Game");
@@ -158,6 +161,15 @@ public class Game implements Runnable {
 		ui.shuffle(players.get(0).getCards(),DicardedDeck.Peek());
 		
 	}
+        protected void refillMainDeck(){
+            Card cardOnDD=DicardedDeck.Draw();
+            while(!DicardedDeck.isEmpty()){
+                MainDeck.Insert(DicardedDeck.Draw());
+            }
+            MainDeck.shuffle();
+            DicardedDeck.Insert(cardOnDD);
+            ui.display("Main Deck have been refilled with Discarded Deck cards");
+        }
 
 	@Override
 	public void run() {

@@ -250,6 +250,9 @@ public class Player_Client extends Player implements Runnable{
                     setTurn(true);
                     ui.display("It's your turn");
                     break;
+                case "REFILL":
+                    ui.display("Main Deck have been refilled with Discarded Deck cards");
+                    break;
                 case "MYDREW_CARD":
                     if (elements.length>2){
                         ui.P1_DrawDD(parseCard(elements[1]), parseCard(elements[2]));

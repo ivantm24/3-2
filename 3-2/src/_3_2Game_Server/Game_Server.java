@@ -61,6 +61,14 @@ public class Game_Server extends Game implements Runnable{
                 plCli.send("NMC");
             }
     }
+
+    @Override
+    protected void refillMainDeck() {
+        super.refillMainDeck();
+        players.stream().map((pl) -> (Player_Client)pl).forEach((plCli) -> {
+            plCli.send("REFILL");
+        });
+    }
     
     
 
