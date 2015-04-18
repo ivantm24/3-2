@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Player {
 	protected String userName="";
-	private Deck hand=new Deck(true);
+	protected Deck hand=new Deck(true);
 	public boolean turn=false;
 	private Game gm;
 	
