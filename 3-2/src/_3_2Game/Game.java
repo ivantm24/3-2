@@ -27,6 +27,10 @@ public class Game implements Runnable {
 			this.status=status;
 		}
 	}
+        
+        public ArrayList<Player> getPlayers(){
+            return players;
+        }
 	
 	public UI_Updater getUI_updater(){
 		return ui;
