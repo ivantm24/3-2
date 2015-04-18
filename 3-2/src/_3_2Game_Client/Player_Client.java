@@ -5,6 +5,7 @@
  */
 package _3_2Game_Client;
 
+import _3_2Game.Card;
 import _3_2Game.Player;
 import _3_2Game.UI_Updater;
 import _3_2Game.UI_cmd;
@@ -21,10 +22,11 @@ import java.util.Scanner;
  *
  * @author ivantactukmercado
  */
-public class Player_Client extends Player {
-    private BufferedReader in;
+public class Player_Client extends Player implements Runnable{
+    public BufferedReader in;
     public PrintWriter out;
     private UI_Updater ui;
+    private boolean tableReady=false;
     
         
     public static void main(String[] args) throws Exception {
@@ -52,7 +54,7 @@ public class Player_Client extends Player {
                     int cantUser=client.join(tableName);
                     System.out.println("Success:"+cantUser);
                     if (cantUser>0){
-                        client.waitForTableReady();
+                        i=4;
                     }
                     break;
                 case 3:
@@ -62,13 +64,22 @@ public class Player_Client extends Player {
                     boolean success=client.createTable(tableName);
                     System.out.println("Success:"+success);
                     if (success){
-                        client.waitForTableReady();
+                        i=4;//exit
                     }
                     break;
                 default:
                     break;
             }
         }while(i!=4);
+        
+        new Thread(client).start();
+        while(true){
+            while(!client.getTurn());
+            client.DrawFromMD();
+            System.out.println("Select card to discard");
+            i=s.nextInt();
+            client.Discard(client.getCards().get(i));
+        }
     }
 
     public Player_Client(String userName,Socket socket) throws IOException {
@@ -98,6 +109,14 @@ public class Player_Client extends Player {
         in = new BufferedReader(
                 new InputStreamReader(socket.getInputStream()));
         out = new PrintWriter(socket.getOutputStream(), true);
+    }
+    
+    public void changeUi(UI_Updater ui){
+        this.ui=ui;
+    }
+    
+    public synchronized boolean isTableReady(){
+     return tableReady;   
     }
     
     public void connectToServer() throws IOException, Exception {
@@ -158,10 +177,122 @@ public class Player_Client extends Player {
             if (input==null) throw new IOException("Input is null in waitForTableReady");
             ui.display("Number of players in table:"+input);
         }
+        out.println("TABLE_READY");
+        synchronized(this){
+            tableReady=true;
+        }
     }
     
     public void send(String msg){
         out.println(msg);
+    }
+    
+    public void send(Card card){
+        send(card.getSuit()+"-"+card.getRank());
+    }
+    
+    public void send(String msg, Card card){
+        send(msg+":"+card.getSuit()+"-"+card.getRank());
+    }
+    public void send(String msg, Card card,Card card2){
+        send(msg+":"+card.getSuit()+"-"+card.getRank()+":"
+        +card2.getSuit()+"-"+card2.getRank());
+    }
+    
+    public static Card parseCard(String str){
+        String[] elements=str.split("-");
+        return new Card(Card.suits.valueOf(elements[0]), Card.ranks.valueOf(elements[1]));
+    }
+
+    @Override
+    public void run() {
+        try {
+            waitForTableReady();
+            listenDealer();
+        } catch (IOException ex) {
+            ui.display(ex.getMessage());
+        }
+    }
+    
+    public void DrawFromMD(){
+        send("MAIN");
+    }
+    
+    public void DrawFromDD(){
+        send("DISCARDED");
+    }
+    
+    public void Discard(Card card){
+        send(card);
+        ui.P1_DiscardDD(card);
+        setTurn(false);
+        
+    }
+
+    private void listenDealer() throws IOException {
+        String input;
+        Card card, cardOnDD;
+        int i=0;
+        ui.display("Waiting for Dealer");
+        input=in.readLine();
+        cardOnDD=parseCard(input);
+        while(!"NMC".equals(input=in.readLine())){
+            if (input==null) throw new IOException("Input is null in listenDealer");
+            card=parseCard(input);
+            this.hand.Insert(card);
+        }
+        ui.shuffle(this.hand.getCards(), cardOnDD);
+        while(!"EOG".equals(input=in.readLine())){
+            if (input==null) throw new IOException("Input is null in listenDealer");
+            String[] elements=input.split(":");
+            switch(elements[0]){
+                case "TURN":
+                    setTurn(true);
+                    ui.display("It's your turn");
+                    break;
+                case "MYDREW_CARD":
+                    if (elements.length>2){
+                        ui.P1_DrawDD(parseCard(elements[1]), parseCard(elements[2]));
+                    }else if (elements.length>1){
+                        ui.P1_DrawMD(parseCard(elements[1]));
+                    }
+                    break;
+                case "DREW_CARD":
+                    if (i==0){
+                        if (elements.length>1)
+                            ui.P2_DiscardDD(parseCard(elements[1]));
+                        else
+                            ui.P2_DrawMD();
+                        i++;
+                    }else if (i==1){
+                        if (elements.length>1)
+                            ui.P3_DrawDD(parseCard(elements[1]));
+                        else
+                            ui.P3_DrawMD();
+                        i++;
+                    }else if (i==2){
+                        if (elements.length>1)
+                            ui.P4_DrawDD(parseCard(elements[1]));
+                        else
+                            ui.P4_DrawMD();
+                        i=0;
+                    }
+                    break;
+                case "DISCARDED":
+                    if (i==0){
+                         ui.P2_DiscardDD(parseCard(elements[1]));
+                    }else if (i==1){
+                         ui.P3_DiscardDD(parseCard(elements[1]));
+                    }else if (i==2){
+                         ui.P4_DiscardDD(parseCard(elements[1]));
+                    }
+                    break;
+                    
+                default:
+                    break;
+            }
+            ui.display(input);
+        }
     }
     
 }
