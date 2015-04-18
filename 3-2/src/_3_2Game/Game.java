@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Game implements Runnable {
-	Deck MainDeck;
-	Deck DicardedDeck;
+	protected Deck MainDeck;
+	protected Deck DicardedDeck;
 	protected ArrayList<Player> players;
-	private UI_Updater ui;
-	private Status status;
-	private Player currentPlayer=null;
+	protected UI_Updater ui;
+	protected Status status;
+	protected Player currentPlayer=null;
 	private Random rand=new Random();
 	
 	public enum Status{
@@ -144,7 +144,7 @@ public class Game implements Runnable {
 		ui.display(currentPlayer+" turn");
 	}
 
-	private void Deal() {
+	protected void Deal() {
 		for (int i = 0; i < 5; i++) {
 			for(Player player:players){
 				player.Draw(MainDeck);
