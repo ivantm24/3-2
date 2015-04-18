@@ -24,7 +24,9 @@ public class Card {
 	public ranks getRank(){
 		return this._rank;
 	}
-	
+	public suits getSuit(){
+		return this._suit;
+	}
 	@Override
 	public String toString() {
 		return _rank.toString()+"."+_suit.toString();
