@@ -3,30 +3,60 @@ package _3_2Game;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * Represents a Deck or Hand of Cards. 
+ * It contains an array of Cards.
+ * It can shuffle itself
+ * It can generate a full deck
+ * It determines if it contains winning cards.
+ * @author ivantactukmercado
+ */
 public class Deck {
 	private ArrayList<Card> cards=new ArrayList<Card>();
 	
+        /**
+         * Creates a new Deck or Hand of cards
+         * @param empty it is true if the new deck is going to be empty
+         */
 	public Deck(boolean empty){
 		if (!empty){
 			generateFullDeck();
 		}
 	}
 	
+        /**
+         * Retrieve list of cards in deck
+         * @return list of cards
+         */
 	public ArrayList<Card> getCards(){
 		return cards;
 	}
 	
+        /**
+         * It inserts a card in the deck
+         * @param card card to insert
+         * @return card inserted
+         */
 	public Card Insert(Card card){
 		if (card==null) return null;
 		cards.add(card);
 		return card;
 	}
 	
+        /**
+         * Draw the card on top of the deck
+         * @return drew card
+         */
 	public Card Draw(){
 		Card card=Peek();
 		cards.remove(card);
 		return card;
 	}
+        
+        /**
+         * Returns the card on top of the Deck
+         * @return card on top of the Deck
+         */
 	public Card Peek(){
 		int size=cards.size();
 		if (size==0) return null;
@@ -34,6 +64,11 @@ public class Deck {
 		return card;
 	}
 	
+        /**
+         * Draw a specific card from the Deck
+         * @param card card to draw
+         * @return  drew card
+         */
 	public Card Draw(Card card){
 		int i;
 		
@@ -46,10 +81,17 @@ public class Deck {
 		return card;
 	}
 	
+        /**
+         * Verifies if the Deck is empty
+         * @return true if the Deck is empty
+         */
 	public boolean isEmpty(){
 		return cards.isEmpty();
 	}
 	
+        /**
+         * Shuffles the Deck
+         */
 	public void shuffle(){
 		ArrayList<Card> newCardsShuffled=new ArrayList<Card>();
 		Random rand = new Random();
@@ -66,6 +108,10 @@ public class Deck {
 		cards=newCardsShuffled;
 	}
 	
+        /**
+         * Verifies if the Deck is a wining Deck
+         * @return true if Deck have 3&2
+         */
 	public boolean isWinningHand(){
 		Card.ranks rank1=null;
 		Card.ranks rank2=null;
@@ -92,6 +138,9 @@ public class Deck {
 		return false;
 	}
 	
+        /**
+         * Fills up Deck with 52 cards
+         */
 	private void generateFullDeck() {
 		for (int _suit = 0; _suit < 4; _suit++) {
 			for (int _rank = 0; _rank < 13; _rank++) {

@@ -1,5 +1,10 @@
 package _3_2Game;
 
+/**
+ * It represents an actual card (rank and suit). 
+ * To String Method can be used to retrieve the image size
+ * @author ivantactukmercado
+ */
 public class Card {
 	
 	private final suits _suit;

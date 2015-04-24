@@ -3,6 +3,10 @@ package _3_2Game;
 import _3_2Game_Client.Table;
 import java.util.ArrayList;
 
+/**
+ * This class allows to play through a command line
+ * @author ivantactukmercado
+ */
 public class UI_cmd implements UI_Updater, UI_Table_Lobby{
 
 	@Override

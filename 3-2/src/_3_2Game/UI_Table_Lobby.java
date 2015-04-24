@@ -9,7 +9,7 @@ import _3_2Game_Client.Table;
 import java.util.ArrayList;
 
 /**
- *
+ * Updates table status
  * @author ivantactukmercado
  */
 public interface UI_Table_Lobby {
