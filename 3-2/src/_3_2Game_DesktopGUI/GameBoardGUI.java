@@ -23,7 +23,7 @@ import javax.swing.JPanel;
  *
  * @author ivantactukmercado
  */
-public class GameBoardGUI extends JFrame{
+public class GameBoardGUI extends JPanel{
     
     public HandGUI P1;
     public HandGUI P2;
@@ -40,6 +40,7 @@ public class GameBoardGUI extends JFrame{
     }
     
     private void initUI() throws IOException {
+        setLayout(new BorderLayout());
         CardGUI card;
         P1=new HandGUI(true);
         for (int i = 0; i < 6; i++) {
@@ -75,16 +76,14 @@ public class GameBoardGUI extends JFrame{
         decks.setOpaque(false);
         this.add(P1,BorderLayout.SOUTH);
         this.add(P3,BorderLayout.NORTH);
-        this.add(P3,BorderLayout.WEST);
+        this.add(P2,BorderLayout.WEST);
         this.add(P4,BorderLayout.EAST);
         this.add(decks,BorderLayout.CENTER);
   
-        setTitle("3 & 2");
         setSize(430, 430);
         setMinimumSize(new Dimension(430, 430));
-        getContentPane().setBackground(Color.orange);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setBackground(Color.orange);
+
     }
     
     public static void main(String[] args) {
