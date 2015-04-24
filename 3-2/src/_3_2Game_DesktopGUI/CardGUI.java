@@ -49,7 +49,6 @@ public class CardGUI extends JButton{
     
     public void setCard(Card card) throws IOException{
         this.card=card;
-        Image im;
         if (this.vertical)
             im=loadImage(card);
         else
