@@ -6,10 +6,10 @@ public class Card {
 	private final ranks _rank;
 	
 	public enum suits{
-		diamods, hearts, clubs, spades
+		diamonds, hearts, clubs, spades
 	}
 	public enum ranks{
-		Ace,_2,_3,_4,_5,_6,_7,_8,_9,_10,Jack,Queen,King
+		ace,_2,_3,_4,_5,_6,_7,_8,_9,_10,jack,queen,king
 	}
 	
 	public Card(suits _suit, ranks _rank){
@@ -29,7 +29,10 @@ public class Card {
 	}
 	@Override
 	public String toString() {
-		return _rank.toString()+"."+_suit.toString();
+            String tmp=_rank.toString();
+            if (tmp.contains("_"))
+                tmp=tmp.substring(1, tmp.length());
+            return tmp+"_of_"+_suit.toString();
 	}
 	
 	@Override
