@@ -98,7 +98,6 @@ public class GameBoardGUI extends JPanel{
                 Player player1=gm.getPlayers().get(0);
                 if (player1.getTurn()&&!P1hasDrawnCard){
                     Card _card=gm.P1DrawCardMD();
-                    P1.insert(_card);
                     P1hasDrawnCard=true;
                 }
                 
@@ -111,13 +110,7 @@ public class GameBoardGUI extends JPanel{
                 if (player1.getTurn()&&!P1hasDrawnCard){
                     Card _card=gm.P1DrawCardDD();
                     CardGUI c = (CardGUI)event.getSource();
-                    try {
-                        c.setCard(gm.peekDD());
-                    } catch (IOException ex) {
-                        Logger.getLogger(GameBoardGUI.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    ((JPanel)c.getParent()).revalidate(); 
-                    P1.insert(_card);
+                    ((JPanel)c.getParent()).revalidate();
                     P1hasDrawnCard=true;
                 }
                 
@@ -130,12 +123,7 @@ public class GameBoardGUI extends JPanel{
                 Player player1=gm.getPlayers().get(0);
                 if (player1.getTurn()&&P1hasDrawnCard){
                     CardGUI c = (CardGUI)event.getSource();
-                    P1.remove(c.getCard());
-                    try {
-                        DicardedDeck.setCard(c.getCard());
-                    } catch (IOException ex) {
-                        Logger.getLogger(GameBoardGUI.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                    gm.P1Discard(c.getCard());
                     ((JPanel)c.getParent()).revalidate(); 
                     player1.setTurn(false);
                     P1hasDrawnCard=false;

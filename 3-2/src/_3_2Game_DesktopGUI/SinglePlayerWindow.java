@@ -119,7 +119,7 @@ public class SinglePlayerWindow extends JFrame implements UI_Updater{
     @Override
     public void P1_DrawMD(Card card) {
         msgViewer.append("P1_DrawMD:"+card+"\n");
-        //Implemented in event listener
+        gmGUI.P1.insert(card);
     }
 
     @Override
@@ -143,7 +143,12 @@ public class SinglePlayerWindow extends JFrame implements UI_Updater{
     @Override
     public void P1_DrawDD(Card DrawnCard, Card visibleCard) {
         msgViewer.append("P1_DrawDD:"+DrawnCard+","+visibleCard+"\n");
-        //Implemented in event listener
+        try {
+            gmGUI.DicardedDeck.setCard(visibleCard);
+        } catch (IOException ex) {
+            Logger.getLogger(GameBoardGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        gmGUI.P1.insert(DrawnCard);
     }
 
     @Override
@@ -182,7 +187,13 @@ public class SinglePlayerWindow extends JFrame implements UI_Updater{
     @Override
     public void P1_DiscardDD(Card card) {
         msgViewer.append("P1_DiscardDD:"+card+"\n");
-        //Implemented in event listener
+        msgViewer.append("P1 cards:"+game.getPlayers().get(0).getCards());
+        this.gmGUI.P1.remove(card);
+                    try {
+                        this.gmGUI.DicardedDeck.setCard(card);
+                    } catch (IOException ex) {
+                        Logger.getLogger(GameBoardGUI.class.getName()).log(Level.SEVERE, null, ex);
+                    }
     }
 
     @Override

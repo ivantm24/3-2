@@ -247,7 +247,9 @@ public class Game implements Runnable {
         public Card P1DrawCardMD(){
             Player P1;
             P1=players.get(0);
-            return P1.Draw(MainDeck);
+            Card c= P1.Draw(MainDeck);
+            ui.P1_DrawMD(c);
+            return c;
         }
         
         /**
@@ -257,7 +259,17 @@ public class Game implements Runnable {
         public Card P1DrawCardDD(){
             Player P1;
             P1=players.get(0);
-            return P1.Draw(DicardedDeck);
+            Card c= P1.Draw(DicardedDeck);
+            ui.P1_DrawDD(c, DicardedDeck.Peek());
+            return c;
+        }
+        
+        public Card P1Discard(Card card){
+            Player P1;
+            P1=players.get(0);
+            Card c= P1.Discard(card, DicardedDeck);
+            ui.P1_DiscardDD(c);
+            return c;
         }
 
 	@Override
