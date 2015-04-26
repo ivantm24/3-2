@@ -6,11 +6,17 @@
 package _3_2Game_DesktopGUI;
 
 import _3_2Game.Card;
+import _3_2Game.Deck;
+import _3_2Game.Game;
+import _3_2Game.Player;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,6 +36,8 @@ public class GameBoardGUI extends JPanel{
     public JPanel decks=new JPanel();
     public CardGUI MainDeck;
     public CardGUI DicardedDeck;
+    
+    private boolean P1hasDrawnCard=false;
     
     public GameBoardGUI() throws IOException {
 
@@ -77,10 +85,65 @@ public class GameBoardGUI extends JPanel{
         this.add(P4,BorderLayout.EAST);
         this.add(decks,BorderLayout.CENTER);
   
-        setSize(430, 430);
+        //setSize(430, 430);
         setMinimumSize(new Dimension(430, 430));
         setBackground(Color.orange);
 
+    }
+    
+    public void setEventListener(Game gm){
+        MainDeck.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent event) {
+                Player player1=gm.getPlayers().get(0);
+                if (player1.getTurn()&&!P1hasDrawnCard){
+                    Card _card=gm.P1DrawCardMD();
+                    P1.insert(_card);
+                    P1hasDrawnCard=true;
+                }
+                
+            }
+        });
+        DicardedDeck.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent event) {
+                Player player1=gm.getPlayers().get(0);
+                if (player1.getTurn()&&!P1hasDrawnCard){
+                    Card _card=gm.P1DrawCardDD();
+                    CardGUI c = (CardGUI)event.getSource();
+                    try {
+                        c.setCard(gm.peekDD());
+                    } catch (IOException ex) {
+                        Logger.getLogger(GameBoardGUI.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    ((JPanel)c.getParent()).revalidate(); 
+                    P1.insert(_card);
+                    P1hasDrawnCard=true;
+                }
+                
+            }
+        });
+     for(CardGUI c:P1.getCards()){
+         c.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent event) {
+                Player player1=gm.getPlayers().get(0);
+                if (player1.getTurn()&&P1hasDrawnCard){
+                    CardGUI c = (CardGUI)event.getSource();
+                    P1.remove(c.getCard());
+                    try {
+                        DicardedDeck.setCard(c.getCard());
+                    } catch (IOException ex) {
+                        Logger.getLogger(GameBoardGUI.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    ((JPanel)c.getParent()).revalidate(); 
+                    player1.setTurn(false);
+                    P1hasDrawnCard=false;
+                }
+                
+            }
+        });
+     }   
     }
     
     public static void main(String[] args) {

@@ -20,6 +20,7 @@ import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Insets;
 import java.awt.Point;
@@ -33,6 +34,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.swing.BoxLayout;
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -55,7 +57,11 @@ public class test extends JFrame{
     }
 
     private void initUI() throws IOException {
-        
+        setTitle("3 & 2 game");
+        setMinimumSize(new Dimension(740, 600));
+        getContentPane().setBackground(Color.orange);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         
         
         try {
@@ -78,62 +84,84 @@ public class test extends JFrame{
                 //System.exit(0);
             }
         });
+
+        setLayout(new GridBagLayout());
+        GameBoardGUI gm=new GameBoardGUI();
+        GridBagConstraints cGm = new GridBagConstraints();
+        cGm.gridx=0;
+        cGm.gridy=0;
+        cGm.fill=GridBagConstraints.NONE;
+        add(gm,cGm);
+        TableGUI tb=new TableGUI();
+        GridBagConstraints cTb = new GridBagConstraints();
+        cTb.gridx=0;
+        cTb.gridy=1;
+        cTb.fill=GridBagConstraints.BOTH;
+        cTb.weighty=1;
+        add(tb,cTb);
+        ChatGUI ch=new ChatGUI();
+        GridBagConstraints cCh = new GridBagConstraints();
+        cCh.gridx=1;
+        cCh.gridy=0;
+        cCh.fill=GridBagConstraints.BOTH;
+        cCh.gridheight=2;
+        cCh.weightx=1;
+        cCh.weighty=1;
+        add(ch,cCh);
+
+//        JLabel lb=new JLabel("klk");
+//        add(lb);
         
-        HandGUI p=new HandGUI(true);
-        CardGUI b2=new CardGUI(new Card(Card.suits.clubs, Card.ranks.jack), true);
-        p.add(b2);
-        b2=new CardGUI(new Card(Card.suits.hearts, Card.ranks._10), true);
-        p.add(b2);
-        b2=new CardGUI(new Card(Card.suits.clubs, Card.ranks._4), true);
-        p.add(b2);
-        b2=new CardGUI(new Card(Card.suits.diamonds, Card.ranks.ace), true);
-        p.add(b2);
-        b2=new CardGUI(new Card(Card.suits.spades, Card.ranks.jack), true);
-        p.add(b2);
         
-        HandGUI p2=new HandGUI(true);
-        for (int i = 0; i < 6; i++) {
-           CardGUI b5=new CardGUI(null, true);
-           p2.add(b5); 
-        }
-        
-        HandGUI p3=new HandGUI(false); 
-        for (int i = 0; i < 6; i++) {
-           CardGUI b5=new CardGUI(null, false);
-           p3.add(b5); 
-        }
-       
-        
-        HandGUI p4=new HandGUI(false);
-        for (int i = 0; i < 6; i++) {
-           CardGUI b5=new CardGUI(null, false);
-           p4.add(b5); 
-        }
-        
-        JPanel decks=new JPanel();
-        decks.setLayout(new GridBagLayout());
-        JButton b9=new CardGUI(null, true);
-        decks.add(b9);
-        JButton b10=new CardGUI(new Card(Card.suits.diamonds, Card.ranks._10), true);
-        decks.add(b10);
-        decks.setOpaque(false);
-        this.add(p,BorderLayout.SOUTH);
-        this.add(p2,BorderLayout.NORTH);
-        this.add(p3,BorderLayout.WEST);
-        this.add(p4,BorderLayout.EAST);
-        this.add(decks,BorderLayout.CENTER);
-        //createLayout(quitButton);
+//        HandGUI p=new HandGUI(true);
+//        CardGUI b2=new CardGUI(new Card(Card.suits.clubs, Card.ranks.jack), true);
+//        p.add(b2);
+//        b2=new CardGUI(new Card(Card.suits.hearts, Card.ranks._10), true);
+//        p.add(b2);
+//        b2=new CardGUI(new Card(Card.suits.clubs, Card.ranks._4), true);
+//        p.add(b2);
+//        b2=new CardGUI(new Card(Card.suits.diamonds, Card.ranks.ace), true);
+//        p.add(b2);
+//        b2=new CardGUI(new Card(Card.suits.spades, Card.ranks.jack), true);
+//        p.add(b2);
+//        
+//        HandGUI p2=new HandGUI(true);
+//        for (int i = 0; i < 6; i++) {
+//           CardGUI b5=new CardGUI(null, true);
+//           p2.add(b5); 
+//        }
+//        
+//        HandGUI p3=new HandGUI(false); 
+//        for (int i = 0; i < 6; i++) {
+//           CardGUI b5=new CardGUI(null, false);
+//           p3.add(b5); 
+//        }
+//       
+//        
+//        HandGUI p4=new HandGUI(false);
+//        for (int i = 0; i < 6; i++) {
+//           CardGUI b5=new CardGUI(null, false);
+//           p4.add(b5); 
+//        }
+//        
+//        JPanel decks=new JPanel();
+//        decks.setLayout(new GridBagLayout());
+//        JButton b9=new CardGUI(null, true);
+//        decks.add(b9);
+//        JButton b10=new CardGUI(new Card(Card.suits.diamonds, Card.ranks._10), true);
+//        decks.add(b10);
+//        decks.setOpaque(false);
+//        this.add(p,BorderLayout.SOUTH);
+//        this.add(p2,BorderLayout.NORTH);
+//        this.add(p3,BorderLayout.WEST);
+//        this.add(p4,BorderLayout.EAST);
+//        this.add(decks,BorderLayout.CENTER);
         //End Adding button
         
         
         
         
-        setTitle("Simple example");
-        setSize(430, 430);
-        setMinimumSize(new Dimension(430, 430));
-        getContentPane().setBackground(Color.orange);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        
     }
     
     private BufferedImage loadImage() throws IOException {
