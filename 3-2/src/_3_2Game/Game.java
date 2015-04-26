@@ -22,9 +22,6 @@ public class Game implements Runnable {
 		OVER, PLAYING,NOTSTARTED, WaitingForP1		
 	}
         
-        public Card peekDD(){
-            return DicardedDeck.Peek();
-        }
 	
         /**
          * Get Status of game
