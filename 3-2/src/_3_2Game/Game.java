@@ -229,6 +229,26 @@ public class Game implements Runnable {
             DicardedDeck.Insert(cardOnDD);
             ui.display("Main Deck have been refilled with Discarded Deck cards");
         }
+        
+        /**
+         * User draw a card from main deck
+         * @return drew card
+         */
+        public Card P1DrawCardMD(){
+            Player P1;
+            P1=players.get(0);
+            return P1.Draw(MainDeck);
+        }
+        
+        /**
+         * User draw a card from discarded deck
+         * @return  drew card
+         */
+        public Card P1DrawCardDD(){
+            Player P1;
+            P1=players.get(0);
+            return P1.Draw(DicardedDeck);
+        }
 
 	@Override
 	public void run() {
