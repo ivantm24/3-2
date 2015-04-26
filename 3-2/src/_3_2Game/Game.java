@@ -2,6 +2,8 @@ package _3_2Game;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * It contains all the game logic
@@ -19,6 +21,10 @@ public class Game implements Runnable {
 	public enum Status{
 		OVER, PLAYING,NOTSTARTED, WaitingForP1		
 	}
+        
+        public Card peekDD(){
+            return DicardedDeck.Peek();
+        }
 	
         /**
          * Get Status of game
@@ -136,7 +142,11 @@ public class Game implements Runnable {
          * @param currentPlayer2 current player
          */
 	private void CPUplay(Player currentPlayer2) {
-		
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+            }
 		Deck deck;
 		if (rand.nextInt(2)==0){
 			deck=MainDeck;
