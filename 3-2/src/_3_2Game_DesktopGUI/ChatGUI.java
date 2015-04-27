@@ -22,6 +22,8 @@ import javax.swing.JTextField;
  */
 public class ChatGUI extends JPanel{
 
+    JTextArea chatViewer;
+    
     public ChatGUI() {
         super();
         init();
@@ -31,7 +33,7 @@ public class ChatGUI extends JPanel{
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setBackground(Color.LIGHT_GRAY);
         
-        JTextArea chatViewer=new JTextArea();
+        chatViewer=new JTextArea();
         chatViewer.setColumns(20);
         chatViewer.setLineWrap(true);
         //chatViewer.setRows(5);
@@ -53,9 +55,14 @@ public class ChatGUI extends JPanel{
         
         
         for (int i = 0; i < 1000; i++) {
-            chatViewer.append("klk"+i+"\n");
+            chatViewer.append("\n");
         }
         
+        
+    }
+    
+    public JTextArea getChatViewer(){
+        return chatViewer;
     }
     
 }

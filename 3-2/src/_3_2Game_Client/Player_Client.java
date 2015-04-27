@@ -75,7 +75,7 @@ public class Player_Client extends Player implements Runnable{
         new Thread(client).start();
         while(true){
             while(!client.getTurn());
-            client.DrawFromMD();
+            client.DrawFromDD();
             System.out.println("Select card to discard");
             i=s.nextInt();
             client.Discard(client.getCards().get(i));
@@ -138,7 +138,7 @@ public class Player_Client extends Player implements Runnable{
 
 
 
-    private ArrayList<Table> getTablesFromServer() throws IOException {
+    public ArrayList<Table> getTablesFromServer() throws IOException {
         ArrayList<Table> tables=new ArrayList<>();
         out.println("GET_TABLES:");
         String input=in.readLine();
@@ -157,14 +157,14 @@ public class Player_Client extends Player implements Runnable{
         return tables;
     }
 
-    private int join(String tableName) throws IOException {
+    public int join(String tableName) throws IOException {
         out.println("JOIN_TABLE:"+tableName+":"+userName);
         String input=in.readLine();
         System.out.println(input);
         return Integer.parseInt(input);
     }
 
-    private boolean createTable(String tableName) throws IOException {
+    public boolean createTable(String tableName) throws IOException {
         out.println("CREATE_TABLE:"+tableName+":"+userName);
         String input=in.readLine();
         return "true".equals(input);

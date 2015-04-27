@@ -9,6 +9,7 @@ import _3_2Game.Card;
 import _3_2Game.Deck;
 import _3_2Game.Game;
 import _3_2Game.Player;
+import _3_2Game_Client.Player_Client;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -150,6 +151,42 @@ public class GameBoardGUI extends JPanel{
                 
             }
         });
+    }
+
+    void setEventListener(Player_Client player) {
+        MainDeck.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent event) {
+                if (player.getTurn()&&!P1hasDrawnCard){
+                    player.DrawFromMD();
+                    P1hasDrawnCard=true;
+                }
+                
+            }
+        });
+        DicardedDeck.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent event) {
+                if (player.getTurn()&&!P1hasDrawnCard){
+                    player.DrawFromDD();
+                }
+                
+            }
+        });
+     for(CardGUI c:P1.getCards()){
+         c.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent event) {
+                if (player.getTurn()&&P1hasDrawnCard){
+                    CardGUI c = (CardGUI)event.getSource();
+                    player.Discard(c.getCard());
+                    //((JPanel)c.getParent()).revalidate(); 
+                    P1hasDrawnCard=false;
+                }
+                
+            }
+        });
+     } 
     }
     
 }
