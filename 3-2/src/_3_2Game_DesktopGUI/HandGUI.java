@@ -37,7 +37,7 @@ public class HandGUI extends JPanel{
         vInset=new Insets(0,-60,0,0);//spacing
         hInset=new Insets(-60,0,0,0);
         c.insets=vInset;
-        c.gridx=0;
+        c.gridx=10;
         c.gridy=0;
         setOpaque(false);
     }
@@ -51,7 +51,7 @@ public class HandGUI extends JPanel{
         cards.add((CardGUI) comp);
         if (vertical){
             c.insets=vInset;
-            c.gridx++;
+            c.gridx--;
         }else{
             c.insets=hInset;
             c.gridy++;
