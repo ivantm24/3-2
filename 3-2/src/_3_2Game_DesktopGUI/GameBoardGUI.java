@@ -77,7 +77,7 @@ public class GameBoardGUI extends JPanel{
         decks.setLayout(new GridBagLayout());
         MainDeck=new CardGUI(null, true);
         decks.add(MainDeck);
-        DicardedDeck=new CardGUI(new Card(Card.suits.diamonds, Card.ranks._10), true);
+        DicardedDeck=new CardGUI(null, true);
         decks.add(DicardedDeck);
         decks.setOpaque(false);
         this.add(P1,BorderLayout.SOUTH);

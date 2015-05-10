@@ -157,6 +157,11 @@ public class GUIUpdater implements UI_Updater {
         gmGUI.P2.shuffled();
         gmGUI.P3.shuffled();
         gmGUI.P4.shuffled();
+        try {
+            gmGUI.DicardedDeck.setCard(cardOnDD);
+        } catch (IOException ex) {
+            Logger.getLogger(GUIUpdater.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override

@@ -58,7 +58,7 @@ public class Game_Server extends Game implements Runnable{
                 plCli.send(this.DicardedDeck.Peek());
                 for(Card card:plCli.getCards())
                     plCli.send(card);
-                plCli.send("NMC");
+                plCli.send("NMC");//No More Cards
             }
     }
 
