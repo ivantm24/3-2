@@ -198,16 +198,33 @@ public class Player_Client extends Player implements Runnable{
     }
     
     public void send(String msg, Card card){
+        if (card==null){
+            send(msg+":"+"null-null");
+            return;
+        }
         send(msg+":"+card.getSuit()+"-"+card.getRank());
     }
     public void send(String msg, Card card,Card card2){
+        if (card2==null){
+            send(msg+":"+card.getSuit()+"-"+card.getRank()+":"
+        +"null-null");
+            return;
+        }
         send(msg+":"+card.getSuit()+"-"+card.getRank()+":"
         +card2.getSuit()+"-"+card2.getRank());
     }
     
     public static Card parseCard(String str){
         String[] elements=str.split("-");
-        return new Card(Card.suits.valueOf(elements[0]), Card.ranks.valueOf(elements[1]));
+        Card.suits suit;
+        Card.ranks rank;
+        try{
+            suit=Card.suits.valueOf(elements[0]);
+            rank=Card.ranks.valueOf(elements[1]);
+        }catch(IllegalArgumentException e){
+            return null;
+        }
+        return new Card(suit, rank);
     }
 
     @Override
