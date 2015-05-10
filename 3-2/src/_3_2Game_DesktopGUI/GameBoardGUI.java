@@ -169,6 +169,7 @@ public class GameBoardGUI extends JPanel{
             public void actionPerformed(ActionEvent event) {
                 if (player.getTurn()&&!P1hasDrawnCard){
                     player.DrawFromDD();
+                    P1hasDrawnCard=true;
                 }
                 
             }
@@ -182,6 +183,11 @@ public class GameBoardGUI extends JPanel{
                     player.Discard(c.getCard());
                     //((JPanel)c.getParent()).revalidate(); 
                     P1hasDrawnCard=false;
+                }
+                if (!player.getTurn()){
+                    System.out.println("It's NOT your turn");
+                }else{
+                    System.out.println("YOUR TURN");
                 }
                 
             }

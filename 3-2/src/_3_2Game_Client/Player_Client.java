@@ -75,7 +75,13 @@ public class Player_Client extends Player implements Runnable{
         new Thread(client).start();
         while(true){
             while(!client.getTurn());
-            client.DrawFromDD();
+            System.out.println("Select 1 for MD");
+            i=s.nextInt();
+            if (i==1){
+                client.DrawFromMD();
+            }else{
+                client.DrawFromDD();   
+            }
             System.out.println("Select card to discard");
             i=s.nextInt();
             client.Discard(client.getCards().get(i));
@@ -263,7 +269,7 @@ public class Player_Client extends Player implements Runnable{
                 case "DREW_CARD":
                     if (i==0){
                         if (elements.length>1)
-                            ui.P2_DiscardDD(parseCard(elements[1]));
+                            ui.P2_DrawDD(parseCard(elements[1]));
                         else
                             ui.P2_DrawMD();
                         i++;
