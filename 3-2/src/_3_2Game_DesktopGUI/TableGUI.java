@@ -5,9 +5,7 @@
  */
 package _3_2Game_DesktopGUI;
 
-import _3_2Game.Card;
-import _3_2Game.Game;
-import _3_2Game.Player;
+
 import _3_2Game_Client.Player_Client;
 import _3_2Game_Client.Table;
 import java.awt.Color;
@@ -92,6 +90,8 @@ public class TableGUI extends JPanel{
                     ((JPanel)c.getParent()).setVisible(false);
                     new Thread(cli).start();
                     ch.setEventListener(ui, cli.getChatClient());
+                }else{
+                    ui.display("Joining table failed");
                 }
             }
         });
@@ -117,6 +117,8 @@ public class TableGUI extends JPanel{
                     ((JPanel)c.getParent()).setVisible(false);
                     new Thread(cli).start();                  
                     ch.setEventListener(ui, cli.getChatClient());
+                }else{
+                    ui.display("Creating table failed");
                 }
             }
         });
