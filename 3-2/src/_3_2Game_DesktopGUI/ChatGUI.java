@@ -6,22 +6,12 @@
 package _3_2Game_DesktopGUI;
 
 import _3_2Game_Client.Chat_Client;
-import _3_2Game_Client.Player_Client;
-import _3_2Game_Client.Table;
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.BoxLayout;
-import javax.swing.DefaultListModel;
 import javax.swing.JButton;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -69,20 +59,25 @@ public class ChatGUI extends JPanel{
         
         for (int i = 0; i < 1000; i++) {
             chatViewer.append("\n");
-        }    
+        }  
+        
+        
     }
     
     public void setEventListener(GUIUpdater ui,Chat_Client cli){
-        chatBtn.addActionListener(new ActionListener() {
+        
+        ActionListener sendMsgListenter=new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {
-                String msg="";
+                String msg;
                 msg=chatSender.getText();
                 if ("".equals(msg)) return;
                 cli.send(msg);
                 chatSender.setText("");
             }
-        });          
+        };
+        chatBtn.addActionListener(sendMsgListenter); 
+        chatSender.addActionListener(sendMsgListenter);  
     }
     
     public JTextArea getChatViewer(){
