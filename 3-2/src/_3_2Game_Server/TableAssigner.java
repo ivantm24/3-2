@@ -15,8 +15,6 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
 import _3_2Game_Client.Player_Client;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -61,7 +59,8 @@ public class TableAssigner extends Thread {
         }
         
         synchronized static boolean join(String tbName,Player_Client player){
-            for(Table_Server tb:tables){
+            for(Table_Server tb:getTables()){
+                if (tb.getPlayers().size()>=4) continue;
                 if (tb.getName().equals(tbName)&&!tb.contains(player)){
                     tb.add(player);
                     log("User "+player.toString()+" joined table "+tbName);
@@ -176,7 +175,8 @@ public class TableAssigner extends Thread {
 
     public void sendTables() {
         StringBuilder stringBuilder=new StringBuilder();
-        for(Table_Server tb:tables){
+        for(Table_Server tb:getTables()){
+            if (tb.getPlayers().size()>=4) continue;
             stringBuilder.append(":").append(tb.getName());
             for(Player_Client pl:tb.getPlayers()){
                 stringBuilder.append(",").append(pl.toString());
