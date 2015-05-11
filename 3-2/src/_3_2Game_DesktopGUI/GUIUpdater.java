@@ -35,31 +35,31 @@ public class GUIUpdater implements UI_Updater {
     
     @Override
     public void P1_DrawMD(Card card) {
-        msgViewer.append("P1_DrawMD:"+card+"\n");
+        display("P1_DrawMD:"+card);
         gmGUI.P1.insert(card);
     }
 
     @Override
     public void P2_DrawMD() {
-        msgViewer.append("P2_DrawMD:"+"\n");
+        display("P2_DrawMD");
         gmGUI.P2.makeAllVisible();
     }
 
     @Override
     public void P3_DrawMD() {
-        msgViewer.append("P3_DrawMD:"+"\n");
+        display("P3_DrawMD");
         gmGUI.P3.makeAllVisible();
     }
 
     @Override
     public void P4_DrawMD() {
-        msgViewer.append("P4_DrawMD:"+"\n");
+        display("P4_DrawMD");
         gmGUI.P4.makeAllVisible();
     }
 
     @Override
     public void P1_DrawDD(Card DrawnCard, Card visibleCard) {
-        msgViewer.append("P1_DrawDD:"+DrawnCard+","+visibleCard+"\n");
+        display("P1_DrawDD:"+DrawnCard+","+visibleCard);
         try {
             gmGUI.DicardedDeck.setCard(visibleCard);
         } catch (IOException ex) {
@@ -70,7 +70,7 @@ public class GUIUpdater implements UI_Updater {
 
     @Override
     public void P2_DrawDD(Card visibleCard) {
-        msgViewer.append("P2_DrawDD:"+visibleCard+"\n");
+        display("P2_DrawDD:"+visibleCard);
         gmGUI.P2.makeAllVisible();
         try {
             gmGUI.DicardedDeck.setCard(visibleCard);
@@ -81,7 +81,7 @@ public class GUIUpdater implements UI_Updater {
 
     @Override
     public void P3_DrawDD(Card visibleCard) {
-        msgViewer.append("P3_DrawDD:"+visibleCard+"\n");
+        display("P3_DrawDD:"+visibleCard);
         gmGUI.P3.makeAllVisible();
         try {
             gmGUI.DicardedDeck.setCard(visibleCard);
@@ -92,7 +92,7 @@ public class GUIUpdater implements UI_Updater {
 
     @Override
     public void P4_DrawDD(Card visibleCard) {
-        msgViewer.append("P4_DrawDD:"+visibleCard+"\n");
+        display("P4_DrawDD:"+visibleCard);
         gmGUI.P4.makeAllVisible();
         try {
             gmGUI.DicardedDeck.setCard(visibleCard);
@@ -103,7 +103,7 @@ public class GUIUpdater implements UI_Updater {
 
     @Override
     public void P1_DiscardDD(Card card) {
-        msgViewer.append("P1_DiscardDD:"+card+"\n");
+        display("P1_DiscardDD:"+card);
         //msgViewer.append("P1 cards:"+game.getPlayers().get(0).getCards());
         this.gmGUI.P1.remove(card);
                     try {
@@ -115,7 +115,7 @@ public class GUIUpdater implements UI_Updater {
 
     @Override
     public void P2_DiscardDD(Card card) {
-        msgViewer.append("P2_DiscardDD:"+card+"\n");
+        display("P2_DiscardDD:"+card);
         gmGUI.P2.makeFirstInvisible();
         try {
             gmGUI.DicardedDeck.setCard(card);
@@ -126,7 +126,7 @@ public class GUIUpdater implements UI_Updater {
 
     @Override
     public void P3_DiscardDD(Card card) {
-        msgViewer.append("P3_DiscardDD:"+card.toString()+"\n");
+        display("P3_DiscardDD:"+card.toString());
         gmGUI.P3.makeFirstInvisible();
         try {
             gmGUI.DicardedDeck.setCard(card);
@@ -137,7 +137,7 @@ public class GUIUpdater implements UI_Updater {
 
     @Override
     public void P4_DiscardDD(Card card) {
-        msgViewer.append("P4_DiscardDD:"+card.toString()+"\n");
+        display("P4_DiscardDD:"+card.toString());
         gmGUI.P4.makeFirstInvisible();
         try {
             gmGUI.DicardedDeck.setCard(card);
@@ -148,7 +148,7 @@ public class GUIUpdater implements UI_Updater {
 
     @Override
     public void shuffle(ArrayList<Card> P1_cards, Card cardOnDD) {
-        msgViewer.append("Shuffled:"+P1_cards.toString()+"\n");
+        display("Shuffled:"+P1_cards.toString());
         try {
             gmGUI.P1.shuffled(P1_cards);
         } catch (IOException ex) {
@@ -167,6 +167,7 @@ public class GUIUpdater implements UI_Updater {
     @Override
     public void display(String msg) {
         msgViewer.append(msg+"\n");
+        msgViewer.setCaretPosition(msgViewer.getDocument().getLength());
     }
     
 }
