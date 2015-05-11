@@ -8,6 +8,7 @@ package _3_2Game_Server;
 import _3_2Game.Game;
 import _3_2Game.Player;
 import _3_2Game.UI_Updater;
+import _3_2Game.UI_cmd;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -15,60 +16,80 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author ivantactukmercado
  */
-public class Chat_Server {
+public class Chat_Server implements Runnable{
 
-    Game gm;
-    public Chat_Server(Game gm, UI_Updater ui) {
-        this.gm=gm;
+    private HashMap<Table_Server, ArrayList<PrintWriter>> multicast=new HashMap<>();
+    UI_Updater ui;
+    public Chat_Server( UI_Updater ui) {
+        this.ui=ui;
+    }
+    
+    private synchronized void addClient(Table_Server tb,PrintWriter out){
+        if (!multicast.containsKey(tb)){
+            multicast.put(tb, new ArrayList<>());
+        }
+        ArrayList<PrintWriter> out_everyone=multicast.get(tb);
+        out_everyone.add(out);
+    }
+    
+    private synchronized  ArrayList<PrintWriter> getMulticastOut(Table_Server tb){
+        return multicast.get(tb);
     }
     
     
-    
-    void startServer(UI_Updater ui) throws IOException{
+    public void startServer() throws IOException{
         System.out.println("3&2 chat server is running");
-        int clientNumber = 0;
         ArrayList<PrintWriter> out_everyone=new ArrayList<>();
         ArrayList<Chat_Server_Listener> chats=new ArrayList<>();
         Chat_Server_Listener chatTmp;
         ServerSocket listener = new ServerSocket(3200);
         try {
-            for(Player pl:gm.getPlayers()){
-                chatTmp=(new Chat_Server_Listener(listener.accept(), pl.toString(),out_everyone,ui));
-                out_everyone.add(chatTmp.getOut());
-                chats.add(chatTmp);
+            while (true) {
+                new Thread(new Chat_Server_Listener(listener.accept(), ui)).start();
             }
-            chats.stream().forEach((ch) -> {
-                new Thread(ch).start();
-            });
         } finally {
             listener.close();
+        }
+    }
+
+    @Override
+    public void run() {
+        try {
+            startServer();
+        } catch (IOException ex) {
+            Logger.getLogger(Chat_Server.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
     class Chat_Server_Listener implements Runnable{
         
-        private final ArrayList<PrintWriter> out_everyone;
+        //private final ArrayList<PrintWriter> out_everyone;
         private final PrintWriter out;
         private final BufferedReader in;
-        private final String userName;
+        private String userName="";
         private UI_Updater ui;
+        private Table_Server tb;
 
-        private Chat_Server_Listener(Socket socket, String userName,ArrayList<PrintWriter> out_everyone, UI_Updater ui) throws IOException {
+        private Chat_Server_Listener(Socket socket, UI_Updater ui) throws IOException {
             in = new BufferedReader(
                 new InputStreamReader(socket.getInputStream()));
             out = new PrintWriter(socket.getOutputStream(), true);
-            this.userName=userName;
-            this.out_everyone=out_everyone;
+            
+            //assign to multicast group
             this.ui=ui;
+            
         }
         
         public void BroadCast(String msg){
-            for(PrintWriter o:out_everyone){
+            for(PrintWriter o:getMulticastOut(tb)){
                 o.println(userName+":"+msg);
             }
         }
@@ -81,6 +102,18 @@ public class Chat_Server {
         public void run() {
             String input;
             try {
+                this.userName=in.readLine();
+                if ("".equals(this.userName)){
+                    ui.display("Empty user name for new chat client");
+                    return;
+                }
+                tb=TableAssigner.getTableByUserName(userName);   
+                if (tb==null){
+                   ui.display("No table found for client: "+userName);
+                    return; 
+                }
+                addClient(tb, out);
+                
                 while((input=in.readLine())!=null){
                     BroadCast(input);
                 }

@@ -85,6 +85,10 @@ public class Player {
 	public boolean hasWon(){
 		return hand.isWinningHand();
 	}
+        
+        public String getUserName(){
+            return this.userName;
+        }
 	
 	@Override
 	public String toString() {

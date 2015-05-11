@@ -24,7 +24,7 @@ public class Chat_Server_Test {
         players.add(new Player("P2"));
         players.add(new Player("P3"));
         Game gm=new Game(players, ui);
-        Chat_Server server=new Chat_Server(gm, ui);
-        server.startServer(ui);
+        Chat_Server server=new Chat_Server(ui);
+        server.startServer();
     }
 }

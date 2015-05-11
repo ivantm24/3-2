@@ -92,6 +92,15 @@ public class TableAssigner extends Thread {
             return null;
         }
         
+        synchronized static Table_Server getTableByUserName(String UserName){
+            for(Table_Server tb:tables){
+                for(Player pl: tb.getPlayers())
+                    if (pl.getUserName().equals(UserName))
+                        return tb;
+            }
+            return null;
+        }
+        
 	
         @Override
 	 public void run() {
@@ -134,9 +143,9 @@ public class TableAssigner extends Thread {
                              if (playersCount==4){
                                  ArrayList<Player> normalPlayers=new ArrayList<>(players);
                                  input = in.readLine();
-                                 tableReady(clientNumber, input);
                                  Game_Server gm=new Game_Server(normalPlayers, ui,tb.getName());
-                                 new Thread(gm).start();
+                                 tableReady(clientNumber, input);                                 
+                                 new Thread(gm).start();                                
                                  tableReady=true;
                                  return;
                              }

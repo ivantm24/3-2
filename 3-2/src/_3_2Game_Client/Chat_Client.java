@@ -22,13 +22,14 @@ public class Chat_Client implements Runnable{
     private final BufferedReader in;
     private UI_Updater ui;
     
-    public Chat_Client(UI_Updater ui) throws IOException {
+    public Chat_Client(UI_Updater ui, String userName) throws IOException {
         String serverAddress = "127.0.0.1";
         Socket socket = new Socket(serverAddress, 3200);
         this.ui=ui;
         in = new BufferedReader(
             new InputStreamReader(socket.getInputStream()));
         out = new PrintWriter(socket.getOutputStream(), true);
+        out.println(userName);
     }
     
     public void send(String msg){

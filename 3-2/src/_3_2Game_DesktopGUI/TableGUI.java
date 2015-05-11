@@ -69,7 +69,7 @@ public class TableGUI extends JPanel{
         
     }
     
-    public void setEventListener(GUIUpdater ui,Player_Client cli){
+    public void setEventListener(GUIUpdater ui,Player_Client cli, ChatGUI ch){
         joinBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {
@@ -91,6 +91,7 @@ public class TableGUI extends JPanel{
                     JButton c = (JButton)event.getSource();
                     ((JPanel)c.getParent()).setVisible(false);
                     new Thread(cli).start();
+                    ch.setEventListener(ui, cli.getChatClient());
                 }
             }
         });
@@ -114,7 +115,8 @@ public class TableGUI extends JPanel{
                     ui.display("Waiting for other players...");
                     JButton c = (JButton)event.getSource();
                     ((JPanel)c.getParent()).setVisible(false);
-                    new Thread(cli).start();
+                    new Thread(cli).start();                  
+                    ch.setEventListener(ui, cli.getChatClient());
                 }
             }
         });

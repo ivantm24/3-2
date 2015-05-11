@@ -94,13 +94,10 @@ public class MultiplayerWindow extends JFrame{
         cCh.weighty=1;
         add(ch,cCh);
         ui=new GUIUpdater(ch.getChatViewer(), gm);
-        
-        
         socket = new Socket(serverAddress, 3232);
         this.Player_Client = new Player_Client("ivantm24",socket,ui);
-        
         this.Player_Client.connectToServer();
-        tb.setEventListener(ui, Player_Client);
+        tb.setEventListener(ui, Player_Client,ch);
         gm.setEventListener(Player_Client);
         
         

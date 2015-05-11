@@ -16,6 +16,8 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -27,7 +29,21 @@ public class Player_Client extends Player implements Runnable{
     public PrintWriter out;
     private UI_Updater ui;
     private boolean tableReady=false;
+    Chat_Client ch=null;
     
+    public synchronized Chat_Client getChatClient(){
+        if (ch==null) try {
+            this.wait();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Player_Client.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ch;
+    }
+    
+    public synchronized void CreateChatClient(UI_Updater ui, String userName) throws IOException{
+        ch=new Chat_Client(ui,userName);
+        this.notifyAll();
+    }
         
     public static void main(String[] args) throws Exception {
         String serverAddress = "127.0.0.1";
@@ -179,6 +195,8 @@ public class Player_Client extends Player implements Runnable{
     private void waitForTableReady() throws IOException {
         String input="1";
         ui.display("Waiting for other players to join table");
+        this.CreateChatClient(ui, userName);
+        new Thread(ch).start();
         while(!"4".equals(input=in.readLine())){
             if (input==null) throw new IOException("Input is null in waitForTableReady");
             ui.display("Number of players in table:"+input);
