@@ -53,17 +53,17 @@ public class MultiplayerWindow extends JFrame{
     
     private Image image;
     private Player_Client Player_Client;
-    String serverAddress = "127.0.0.1";
+    String serverAddress;
     Socket socket;
     boolean connected_to_table = false;
     GUIUpdater ui;
             
-    public MultiplayerWindow() throws IOException, Exception {
-
-        initUI();
+    public MultiplayerWindow(String username,String ip) throws IOException, Exception {
+        initUI(username,ip);
     }
 
-    private void initUI() throws IOException, Exception {
+    private void initUI(String username,String ip) throws IOException, Exception {
+        this.serverAddress=ip;
         setTitle("3 & 2 game");
         setMinimumSize(new Dimension(740, 600));
         getContentPane().setBackground(Color.orange);
@@ -95,7 +95,7 @@ public class MultiplayerWindow extends JFrame{
         add(ch,cCh);
         ui=new GUIUpdater(ch.getChatViewer(), gm);
         socket = new Socket(serverAddress, 3232);
-        this.Player_Client = new Player_Client("ivantm24",socket,ui);
+        this.Player_Client = new Player_Client(username,socket,ui);
         this.Player_Client.connectToServer();
         tb.setEventListener(ui, Player_Client,ch);
         gm.setEventListener(Player_Client);
@@ -184,7 +184,7 @@ public class MultiplayerWindow extends JFrame{
             public void run() {
                 MultiplayerWindow ex;
                 try {
-                    ex = new MultiplayerWindow();
+                    ex = new MultiplayerWindow("ivantm24","127.0.0.1");
                     ex.setVisible(true);
                 } catch (IOException ex1) {
                     Logger.getLogger(MultiplayerWindow.class.getName()).log(Level.SEVERE, null, ex1);

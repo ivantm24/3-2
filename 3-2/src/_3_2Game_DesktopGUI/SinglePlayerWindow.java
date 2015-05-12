@@ -38,11 +38,11 @@ public class SinglePlayerWindow extends JFrame{
     JTextArea msgViewer;
     GameBoardGUI gmGUI;
     
-    public SinglePlayerWindow() throws HeadlessException, IOException {
-        init();
+    public SinglePlayerWindow(String userName) throws HeadlessException, IOException {
+        init(userName);
     }
 
-    private void init() throws IOException {
+    private void init(String userName) throws IOException {
         setTitle("3 & 2 sinlge player game");
         setLayout(new GridBagLayout());
         setMinimumSize(new Dimension(600, 600));
@@ -73,7 +73,7 @@ public class SinglePlayerWindow extends JFrame{
         add(MsgScrollPane1,cCh);
         
         players=new ArrayList<>();
-        Player P1=new Player("ivan");
+        Player P1=new Player(userName);
         players.add(P1);
         players.add(new Player("CPU2"));
         players.add(new Player("CPU3"));
@@ -92,7 +92,7 @@ public class SinglePlayerWindow extends JFrame{
         GUIUpdater.set_game(game);
         gmGUI.setEventListener(game);
         new Thread(game).start();
-        
+              
     }
     
     
@@ -104,12 +104,10 @@ public class SinglePlayerWindow extends JFrame{
             public void run() {
                 SinglePlayerWindow ex;
                 try {
-                    ex = new SinglePlayerWindow();
+                    ex = new SinglePlayerWindow("ivan");
                     ex.setVisible(true);
                     
-                } catch (HeadlessException ex1) {
-                    Logger.getLogger(SinglePlayerWindow.class.getName()).log(Level.SEVERE, null, ex1);
-                } catch (IOException ex1) {
+                } catch (HeadlessException | IOException ex1) {
                     Logger.getLogger(SinglePlayerWindow.class.getName()).log(Level.SEVERE, null, ex1);
                 }
                 
