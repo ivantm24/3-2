@@ -7,7 +7,6 @@ package _3_2Game_DesktopGUI;
 
 import _3_2Game.Card;
 import _3_2Game.Game;
-import _3_2Game.Player;
 import _3_2Game.UI_Updater;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -168,6 +167,12 @@ public class GUIUpdater implements UI_Updater {
     public void display(String msg) {
         msgViewer.append(msg+"\n");
         msgViewer.setCaretPosition(msgViewer.getDocument().getLength());
+    }
+    
+    @Override
+    public void win(String username){
+        display(username +" has won");
+        
     }
     
 }

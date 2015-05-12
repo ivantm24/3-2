@@ -84,5 +84,13 @@ public interface UI_Updater {
          * @param msg message
          */
 	public void display(String msg);
+        
+        /**
+         * Displays winning message
+         * @param username winner's username
+         */
+        public void win(String username);
+        
+        
 
 }

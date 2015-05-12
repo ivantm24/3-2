@@ -98,5 +98,9 @@ public class UI_cmd implements UI_Updater, UI_Table_Lobby{
         public void refreshTables(ArrayList<Table> tables) {
             System.out.println(tables);
         }
+        @Override
+        public void win(String username){
+            display(username+" has won");
+        }
 
 }

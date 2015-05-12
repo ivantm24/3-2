@@ -277,13 +277,13 @@ public class Player_Client extends Player implements Runnable{
         ui.display("Waiting for Dealer");
         input=in.readLine();
         cardOnDD=parseCard(input);
-        while(!"NMC".equals(input=in.readLine())){
+        while(!"NMC".equals(input=in.readLine())){//No More Cards
             if (input==null) throw new IOException("Input is null in listenDealer");
             card=parseCard(input);
             this.hand.Insert(card);
         }
         ui.shuffle(this.hand.getCards(), cardOnDD);
-        while(!"EOG".equals(input=in.readLine())){
+        while(!"EOG".equals(input=in.readLine())){//End Of Game
             if (input==null) throw new IOException("Input is null in listenDealer");
             String[] elements=input.split(":");
             switch(elements[0]){
@@ -335,8 +335,11 @@ public class Player_Client extends Player implements Runnable{
                 default:
                     break;
             }
-            ui.display(input);
+            //ui.display(input);
         }
+        input=in.readLine();
+        ui.win(input);
+        
     }
     
 }

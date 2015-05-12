@@ -69,6 +69,23 @@ public class Game_Server extends Game implements Runnable{
             plCli.send("REFILL");
         });
     }
+
+    @Override
+    protected void FinalizeGame() {
+        Player winner=null;
+        for(Player pl: players){
+            if (pl.hasWon()) winner=pl;
+            Player_Client plCli=(Player_Client)pl;
+            plCli.send("EOG");//End of Game
+        }
+        if (winner==null) return;
+        for(Player pl: players){  
+            Player_Client plCli=(Player_Client)pl;
+            plCli.send(winner.getUserName());
+        }
+        
+    }
+    
     
     
 
@@ -87,7 +104,7 @@ public class Game_Server extends Game implements Runnable{
                     break;
             }
             //Draw card
-            Card drewcard=deck.Draw();
+            Card drewcard=currentPlayer.Draw(deck);
             //Send card to player
             if (this.DicardedDeck==deck)
                 ((Player_Client)currentPlayer).send("MYDREW_CARD",drewcard,DicardedDeck.Peek());
@@ -108,7 +125,7 @@ public class Game_Server extends Game implements Runnable{
             //Received discarded card
             input= ((Player_Client)currentPlayer).in.readLine();
             Card discardedCard=Player_Client.parseCard(input);
-            this.DicardedDeck.Insert(discardedCard);
+            currentPlayer.Discard(discardedCard, this.DicardedDeck);
             //Notify players of dicarded card
             for(Player pl: players){
                 if (pl==currentPlayer) continue;

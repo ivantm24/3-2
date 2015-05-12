@@ -122,11 +122,12 @@ public class Deck {
 				rank1=card.getRank();
 				rank1Count++;
 			}else{
-				if (rank2==null){
-					rank2=card.getRank();
-					rank2Count++;
+                                if (rank1==card.getRank()) rank1Count++;
+                                else if (rank2==null){
+                                            rank2=card.getRank();
+                                            rank2Count++;
 				}else{
-					if (rank1==card.getRank()) rank1Count++;
+					
 					if (rank2==card.getRank()) rank2Count++;
 				}
 			}

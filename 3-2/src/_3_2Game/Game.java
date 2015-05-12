@@ -91,16 +91,24 @@ public class Game implements Runnable {
 	public void StartGame(){
 		Deal();
 		SelectPlayerToPlay();
-		while(isNotOver()){
+		while(true){
                     Play();
+                    if (!isNotOver()) break;
                     NextPlayer();
                     if (MainDeck.isEmpty()){
                         refillMainDeck();
                     }
 		}
 		setStatus(Status.OVER);
-		ui.display("End of Game");
+		FinalizeGame();
 	}
+        
+        /**
+         * Finishes the game
+         */
+        protected void FinalizeGame(){
+            ui.display("End of Game");
+        }
 
         /**
          * Decides who is going to be the next player
@@ -268,7 +276,7 @@ public class Game implements Runnable {
             ui.P1_DiscardDD(c);
             return c;
         }
-
+        
 	@Override
 	public void run() {
 		StartGame();
