@@ -5,7 +5,6 @@ import java.util.ArrayList;
 /**
  * This class is responsible of updating the user interface while a game is happening
  * P1 represents the user of the window
- * @author ivantactukmercado
  */
 public interface UI_Updater {
 	

@@ -9,7 +9,6 @@ import java.util.Random;
  * It can shuffle itself
  * It can generate a full deck
  * It determines if it contains winning cards.
- * @author ivantactukmercado
  */
 public class Deck {
 	private ArrayList<Card> cards=new ArrayList<Card>();

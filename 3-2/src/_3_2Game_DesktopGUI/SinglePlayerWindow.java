@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package _3_2Game_DesktopGUI;
 
 import _3_2Game.Card;
@@ -27,10 +23,6 @@ import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-/**
- *
- * @author ivantactukmercado
- */
 public class SinglePlayerWindow extends JFrame{
 
     ArrayList<Player> players;

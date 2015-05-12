@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 /**
  * Constains all player information
- * @author ivantactukmercado
  */
 public class Player {
 	protected String userName="";

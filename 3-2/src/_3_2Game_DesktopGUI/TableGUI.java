@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package _3_2Game_DesktopGUI;
 
 
@@ -24,10 +20,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 
-/**
- *
- * @author ivantactukmercado
- */
 public class TableGUI extends JPanel{
     JList list;
     JButton joinBtn;

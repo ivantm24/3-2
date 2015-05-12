@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package _3_2Game_Server;
 
 import _3_2Game.Game;
@@ -20,10 +16,6 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author ivantactukmercado
- */
 public class Chat_Server implements Runnable{
 
     private HashMap<Table_Server, ArrayList<PrintWriter>> multicast=new HashMap<>();

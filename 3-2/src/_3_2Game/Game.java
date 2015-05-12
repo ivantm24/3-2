@@ -7,7 +7,6 @@ import java.util.logging.Logger;
 
 /**
  * It contains all the game logic
- * @author ivantactukmercado
  */
 public class Game implements Runnable {
 	protected Deck MainDeck;

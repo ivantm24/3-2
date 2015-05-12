@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package _3_2Game_Server;
 
 import _3_2Game.Player;
@@ -16,10 +12,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import _3_2Game_Client.Player_Client;
 
-/**
- *
- * @author ivantactukmercado
- */
+
 public class TableAssigner extends Thread {
         private final Socket socket;
         private final int clientNumber;

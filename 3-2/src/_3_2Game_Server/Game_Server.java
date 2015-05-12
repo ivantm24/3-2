@@ -9,11 +9,6 @@ import _3_2Game_Client.Player_Client;
 import java.io.IOException;
 import java.util.ArrayList;
 
-
-/**
- *
- * @author Leonardo Matos
- */
 public class Game_Server extends Game implements Runnable{
 
     String tableName;
