@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package _3_2Game_Server;
 
 import _3_2Game.Card;
@@ -17,7 +12,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author ivantactukmercado
+ * @author Leonardo Matos
  */
 public class Game_Server extends Game implements Runnable{
 
