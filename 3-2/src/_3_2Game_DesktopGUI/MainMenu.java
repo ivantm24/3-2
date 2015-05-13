@@ -156,19 +156,19 @@ public class MainMenu extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         String msg="In this game four players are issued five random cards each.\n"+
                 "The rest of the cards are put face down in a pile in the center\n"+
-                " of the table (this is called the pick pile) then the card on \n"+
-                "top of this pile is place side up next to it (this is called \n"+
+                "of the table (this is called the pick pile) then the card on \n"+
+                "top of this pile is place side up next to it (this is called \n\n"+
                 "the discard pile). Each player gets a turn where they can \n"+
                 "either take the card either on top of the discard pile or on \n"+
                 "the pick pile and then discard one of the cards from the six he\n"+
-                "now has in his hands and place it face up on the discard pile.\n" +
+                "now has in his hands and place it face up on the discard pile.\n\n" +
                 "The objective of the game is to collect in your hands three \n"+
                 "cards of one rank and two cards of another rank. (e.g: three\n"+
-                "2’s and two Q’s). This is called having 3&2. The first player \n"+
-                "to have a 3&2 is the winner of the game. Players will take\n"+
-                "turns picking and discarding a card in a counter clock side \n"+
-                "order, the first player being the one on the right side of the \n"+
-                "dealer.";
+                "2’s and two Q’s). This is called having 3&2.\n\n"+
+                "The first player to have a 3&2 is the winner of the game. \n\n"+
+                "Players will take turns picking and discarding a card in a \n"+
+                "counter clock side order, the first player being the one on the\n"+
+                "right side of the dealer.";
         JOptionPane.showMessageDialog(rootPane, msg);
     }//GEN-LAST:event_jButton3ActionPerformed
 
