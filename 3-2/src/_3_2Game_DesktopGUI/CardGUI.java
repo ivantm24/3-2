@@ -67,6 +67,9 @@ public class CardGUI extends JButton{
         return bimg;
     }
     
+    //Method adapted from:
+    //http://stackoverflow.com/questions/8284048/resizing-an-image-in-swing
+    //by butchi
     private BufferedImage resizeImage(BufferedImage originalImage, int width,
             int height, int type) throws IOException {
 
@@ -78,6 +81,9 @@ public class CardGUI extends JButton{
         return resizedImage;
     }
     
+    //Method adapted from:
+    //http://stackoverflow.com/questions/15927014/rotating-an-image-90-degrees-in-java
+    //by Sri Harsha Chilakapati
     private  BufferedImage rotate(BufferedImage image, double angle) {
         double sin = Math.abs(Math.sin(angle)), cos = Math.abs(Math.cos(angle));
         int w = image.getWidth(), h = image.getHeight();

@@ -12,7 +12,7 @@ import javax.swing.JTextArea;
 
 /**
  *
- * @author Leo
+ * 
  */
 public class GUIUpdater implements UI_Updater {
     Game game;
