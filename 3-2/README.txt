@@ -53,6 +53,7 @@ _3_2Game_server
 The game server, it manages online player’s connections, game table and their 
 assignment, chat sessions among players, it extends game class to also manage 
 game rules.
+The server runs on the port 3232, exclusively.
 
 _3_2Game_DesktopGUI
 All the classes used for implementing the Desktop GUI client of the game both 
@@ -74,6 +75,7 @@ When a player wins the system will indicate the game has ended.
 Game Server
 To start the server simply run the “server” file inside of the _3_2Game_Server 
 package. After this clients can connect to the server to play the game.
+The server runs on the port 3232, exclusively.
 
 Game Client
 To start the client simply run the “MainMenu” file inside of the 
