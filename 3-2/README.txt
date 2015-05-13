@@ -62,7 +62,34 @@ single player and multiplayer.
 //HOW TO PLAY THE GAME--
 /////////////////////////////
 
-*----SINGLE PLAYER GAME----*
+*---USING THE SUPPLIED BINARIES---*
+    Game Server
+Run the 3-2Server jar file, using the command:
+     java -jar “3-2 server.jar”
+This will run the 3&2 Game server on a terminal window and clients will be able 
+to connect.
+Note: To play single player the server is not required 
+
+    Game Client
+    Simply run the 3-2.jar file in your computer by double clicking on it.
+
+*---COMPILING THE GAME---*
+To compile the game from source use the following command four times to compile 
+the packages in the indicated order:
+
+    javac PACKAGE_NAME/*.java
+
+    Where “PACKAGE_NAME” is the name of the package, make sure you compile the 
+packages in the order indicated below:
+
+_3_2Game
+_3_2Game_client
+_3_2Game_server
+_3_2Game_DesktopGUI
+        
+        After this the game should be ready to play.
+
+*---PLAYING A SINGLE PLAYER GAME---*
 To start the client simply run the “MainMenu” file inside of the 
 _3_2Game_DesktopGUI and select the “single player” button and enter your player 
 name.
@@ -71,7 +98,7 @@ will be three CPU players and you. The message window will also indicate each
 player’s activities.
 When a player wins the system will indicate the game has ended.
 
-*----MULTIPLAYER GAME----*
+*---PLAYING A MULTI-PLAYER GAME---*
 Game Server
 To start the server simply run the “server” file inside of the _3_2Game_Server 
 package. After this clients can connect to the server to play the game.
@@ -86,22 +113,3 @@ The message window on the bottom will indicate which Player’s turn is. there
 will be three CPU players and you. The message window will also indicate each 
 player’s activities.
 When a player wins the system will indicate the game has ended.
-
-    
-//HOW TO COMPILE THE GAME--
-////////////////////////////////
-
-To compile the game from source use the following command four times to compile
-the packages in the indicated order:
-
-    javac PACKAGE_NAME/*.java
-
-    Where “PACKAGE_NAME” is the name of the package, make sure you compile the 
-packages in the order indicated below:
-
-    1.  _3_2Game
-    2.  _3_2Game_client
-    3.  _3_2Game_server
-    4.  _3_2Game_DesktopGUI
-        
-    After this the game should be ready to play.
